@@ -2953,6 +2953,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8604977587738240621, guid: ef6639c16b11821499d7815f47ef14ed, type: 3}
+      propertyPath: Name
+      value: Barte
+      objectReference: {fileID: 0}
     - target: {fileID: 1035555864325853357, guid: ef6639c16b11821499d7815f47ef14ed, type: 3}
       propertyPath: m_ActionEvents.Array.size
       value: 22

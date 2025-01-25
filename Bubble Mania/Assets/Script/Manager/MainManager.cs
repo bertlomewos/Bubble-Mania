@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class MainManager : MonoBehaviour
 {
 
-    public void Quit(InputAction.CallbackContext context)
+    public void Quit()
     {
         Application.Quit();
     }

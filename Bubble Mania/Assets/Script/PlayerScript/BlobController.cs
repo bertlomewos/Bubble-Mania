@@ -10,6 +10,12 @@ public class BlobController : MonoBehaviour
     [SerializeField] private Bullet bulletPrefab;
     [SerializeField] private Transform shootingPoint;
 
+    [SerializeField] private float CurrentHp;
+    private void Start()
+    {
+       
+    }
+
 
     void Update()
     {
