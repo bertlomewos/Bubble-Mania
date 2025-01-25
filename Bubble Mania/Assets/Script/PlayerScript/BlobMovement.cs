@@ -7,8 +7,8 @@ public class BlobMovement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
-
-    [SerializeField] private float speed = 8f;
+    
+    [SerializeField] private float speed = 100f;
     [SerializeField] private float jumpingPower = 12f;
     private float horizontal;
     private bool isFacingRight = true;
@@ -16,16 +16,22 @@ public class BlobMovement : MonoBehaviour
 
     void Update()
     {
-        rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
 
         if(!isFacingRight && horizontal > 0f)
         {
             flip();
+            Blob.direction = 1;
         }
         else if(isFacingRight && horizontal < 0f)
         {
             flip();
+            Blob.direction = -1;
         }
+    }
+    private void FixedUpdate()
+    {
+        rb.linearVelocity = new Vector2(horizontal * speed * Time.fixedDeltaTime, rb.linearVelocity.y);
+
     }
 
     public void Jump(InputAction.CallbackContext context)
