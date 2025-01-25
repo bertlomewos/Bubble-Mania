@@ -165,7 +165,7 @@ PlayerSettings:
   androidMinAspectRatio: 1
   applicationIdentifier:
     Android: com.SlowMoon.BubbleMania
-    Standalone: com.DefaultCompany.2D-URP
+    Standalone: com.SlowMoon.Bubble-Mania
   buildNumber:
     Standalone: 0
     VisionOS: 0
