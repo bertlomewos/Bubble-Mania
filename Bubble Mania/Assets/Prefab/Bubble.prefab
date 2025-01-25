@@ -166,5 +166,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 4923514797300385094}
-  Bulletspeed: 50
+  Bulletspeed: 1000
   lifespan: 5
