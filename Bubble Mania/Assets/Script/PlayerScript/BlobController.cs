@@ -13,11 +13,6 @@ public class BlobController : MonoBehaviour
 
     void Update()
     {
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            shoot();
-        }
     }
   
     public void shoot()
