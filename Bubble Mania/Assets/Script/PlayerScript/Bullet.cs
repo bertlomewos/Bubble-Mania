@@ -1,5 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Bullet : NetworkBehaviour
 {
@@ -8,20 +9,27 @@ public class Bullet : NetworkBehaviour
     [SerializeField] private float lifespan = 5f;
 
     private float dir = 1;
-
     public override void OnNetworkSpawn()
     {
+        if (!IsClient)
+            return;
+
+    }
+    private void Start()
+    {
+        if (!IsClient) 
+            return;
+        SelfDistructRpc();
         dir = Blob.direction;
     }
 
     void Update()
     {
-        if(!IsOwner) return;
-        SelfDistructRpc();
     }
     private void FixedUpdate()
     {
-        if (!IsOwner) return;
+        if (!IsOwner) 
+            return;
         ShootToRpc();
     }
 

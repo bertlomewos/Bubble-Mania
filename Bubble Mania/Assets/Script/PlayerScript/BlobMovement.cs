@@ -7,21 +7,19 @@ public class BlobMovement : NetworkBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
-
-    
     [SerializeField] private float speed = 100f;
     [SerializeField] private float jumpingPower = 12f;
-    private float horizontal;
+    public static float horizontal;
     private bool isFacingRight = true;
 
 
     void Update()
     {
-        flipNetworkedRpc();
+       flipNetworkedClientRpc();
     }
 
-    [Rpc(SendTo.Owner)]
-    public void flipNetworkedRpc()
+    [ClientRpc(RequireOwnership = false)]
+    public void flipNetworkedClientRpc()
     {
         if (!isFacingRight && horizontal > 0f)
         {
@@ -47,9 +45,9 @@ public class BlobMovement : NetworkBehaviour
         rb.linearVelocity = new Vector2(horizontal * speed * Time.fixedDeltaTime, rb.linearVelocity.y);
     }
 
-    public void Jump(InputAction.CallbackContext context)   
+    public void Jump(InputAction.CallbackContext context)
     {
-        if(context.performed && isGrounded())
+        if(context.performed)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
         }

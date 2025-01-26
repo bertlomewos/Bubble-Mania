@@ -1,5 +1,11 @@
 using UnityEngine;
 
+public enum Players
+{
+    PlayerOne,
+    PlayerTwo
+}
+
 public class Blob : MonoBehaviour
 {
     [SerializeField] private string Name;

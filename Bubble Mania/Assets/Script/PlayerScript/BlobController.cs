@@ -19,9 +19,44 @@ public class BlobController : NetworkBehaviour
         if(instance == null)
             instance = this;
     }
+    public override void OnNetworkSpawn()
+    {
+        Debug.Log("OnNetworkSpawn: " + NetworkManager.Singleton.LocalClientId);
+        if (NetworkManager.Singleton.LocalClientId == 0)
+        {
+            localPlayer = Players.PlayerOne;
+        }
+        else
+        {
+            localPlayer = Players.PlayerTwo;
+        }
+        if (IsServer)
+        {
+            localPlayer = Players.PlayerOne;
+        }
+
+    }
     private void Start()
     {
+        if (!IsOwner)
+            return;
         CurrentHp = Blob.instatnce.Hp;
+        chanageColorRpc();
+    }
+
+    [Rpc(SendTo.Server)]
+    public void chanageColorRpc()
+    {
+        if (IsHost)
+        {
+            Debug.Log(NetworkObject.GetInstanceID());//-85576
+            NetworkObject.gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+        }
+        else if (IsClient)
+        {
+            Debug.Log(NetworkObject.GetInstanceID());
+            NetworkObject.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        }
     }
 
 
@@ -30,7 +65,14 @@ public class BlobController : NetworkBehaviour
 
     }
 
-    [Rpc(SendTo.Owner)]
+    public void shoot()
+    {
+        if (!IsOwner)
+            return;
+        shootRpc();
+    }
+
+    [Rpc(SendTo.Server)]
     public void shootRpc()
     {
        Bullet BulletInstatnce = Instantiate(bulletPrefab, shootingPoint.position, Quaternion.identity);
@@ -46,12 +88,25 @@ public class BlobController : NetworkBehaviour
     {
         if(collision.gameObject.tag == "Bullet")
         {
-            Debug.Log("Shit Enemy hit me");
+            if(IsHost)
+            {
+                Debug.Log("Shit Client hit me");
+            }
+            else if (IsClient)
+            {
+                Debug.Log("Shit Host hit me");
+            }
         }
     }
 
     public float BlobHealth()
     {
         return CurrentHp;
-    }
+    }   
+
+    private Players localPlayer;
+    public Players MePlayer;
+
+        
+
 }
