@@ -8,7 +8,7 @@ public class BlobController : NetworkBehaviour
     [SerializeField] private Bullet bulletPrefab;
     [SerializeField] private Transform shootingPoint;
 
-    [SerializeField] private float CurrentHp;
+    public float CurrentHp;
 
     [SerializeField] private float damage;
 
@@ -18,6 +18,7 @@ public class BlobController : NetworkBehaviour
     {
         if(instance == null)
             instance = this;
+        CurrentHp = Blob.instatnce.Hp;
     }
     public override void OnNetworkSpawn()
     {
@@ -40,7 +41,6 @@ public class BlobController : NetworkBehaviour
     {
         if (!IsOwner)
             return;
-        CurrentHp = Blob.instatnce.Hp;
         chanageColorRpc();
     }
 
@@ -88,14 +88,7 @@ public class BlobController : NetworkBehaviour
     {
         if(collision.gameObject.tag == "Bullet")
         {
-            if(IsHost)
-            {
-                Debug.Log("Shit Client hit me");
-            }
-            else if (IsClient)
-            {
-                Debug.Log("Shit Host hit me");
-            }
+            //TakeDamage();
         }
     }
 
