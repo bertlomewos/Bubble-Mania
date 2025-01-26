@@ -1,7 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class BlobMovement : MonoBehaviour
+public class BlobMovement : NetworkBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
@@ -16,13 +17,18 @@ public class BlobMovement : MonoBehaviour
 
     void Update()
     {
+        flipNetworkedRpc();
+    }
 
-        if(!isFacingRight && horizontal > 0f)
+    [Rpc(SendTo.Owner)]
+    public void flipNetworkedRpc()
+    {
+        if (!isFacingRight && horizontal > 0f)
         {
             flip();
             Blob.direction = 1;
         }
-        else if(isFacingRight && horizontal < 0f)
+        else if (isFacingRight && horizontal < 0f)
         {
             flip();
             Blob.direction = -1;
@@ -30,11 +36,18 @@ public class BlobMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(horizontal * speed * Time.fixedDeltaTime, rb.linearVelocity.y);
-
+        /*[Clinet Side movement]*/
+        MovingRpc();
     }
 
-    public void Jump(InputAction.CallbackContext context)
+    [Rpc(SendTo.Owner)]
+    public void MovingRpc()
+    {
+        /*[Server Side movement]*/
+        rb.linearVelocity = new Vector2(horizontal * speed * Time.fixedDeltaTime, rb.linearVelocity.y);
+    }
+
+    public void Jump(InputAction.CallbackContext context)   
     {
         if(context.performed && isGrounded())
         {
