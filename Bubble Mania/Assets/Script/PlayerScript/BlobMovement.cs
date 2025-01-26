@@ -8,8 +8,8 @@ public class BlobMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     
-    [SerializeField] private float speed = 100f;
-    [SerializeField] private float jumpingPower = 12f;
+    [SerializeField] public float speed = 100f;
+    [SerializeField] public float jumpingPower = 12f;
     private float horizontal;
     private bool isFacingRight = true;
 
