@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    BlobMovement movementController = new BlobMovement();
+    BlobMovement movementController;
     [SerializeField] private float maxHp = 100f;
     private float currentHp;
 
@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        movementController = GetComponent<BlobMovement>();
         currentHp = maxHp;
         originalSpeed = movementController.speed;
         originalJumpPower = movementController.jumpingPower;

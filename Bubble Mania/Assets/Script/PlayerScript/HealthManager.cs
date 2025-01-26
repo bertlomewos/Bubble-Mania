@@ -5,9 +5,6 @@ public class HealthManager : MonoBehaviour
 {
     [SerializeField] private Image healthBar;
     [SerializeField] private float healthAmount = 100f;
-    [SerializeField] private Transform target;
-    [SerializeField] private Camera camera;
-    [SerializeField] private Vector3 offset;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -32,8 +29,6 @@ public class HealthManager : MonoBehaviour
             Heal(5);
         }
 
-        transform.rotation = camera.transform.rotation;
-        transform.position = target.position + offset;
     }
     public void TakeDamage(float damage)
     {
