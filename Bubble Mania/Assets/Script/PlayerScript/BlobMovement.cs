@@ -16,16 +16,15 @@ public class BlobMovement : MonoBehaviour
 
     void Update()
     {
-
         if(!isFacingRight && horizontal > 0f)
         {
             flip();
-            Blob.direction = 1;
+            Blob.instatnce.direction = 1;
         }
         else if(isFacingRight && horizontal < 0f)
         {
             flip();
-            Blob.direction = -1;
+            Blob.instatnce.direction = -1;
         }
     }
     private void FixedUpdate()
@@ -36,7 +35,7 @@ public class BlobMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if(context.performed && isGrounded())
+        if(context.performed)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
         }

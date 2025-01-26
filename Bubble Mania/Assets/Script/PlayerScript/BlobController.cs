@@ -49,7 +49,7 @@ public class BlobController : NetworkBehaviour
     {
         if (IsHost)
         {
-            Debug.Log(NetworkObject.GetInstanceID());//-85576
+            Debug.Log(NetworkObject.GetInstanceID());
             NetworkObject.gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
         }
         else if (IsClient)

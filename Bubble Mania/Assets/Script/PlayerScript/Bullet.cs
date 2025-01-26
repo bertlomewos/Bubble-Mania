@@ -20,11 +20,12 @@ public class Bullet : NetworkBehaviour
         if (!IsClient) 
             return;
         SelfDistructRpc();
-        dir = Blob.direction;
+        dir = Blob.instatnce.direction;
     }
 
     void Update()
     {
+
     }
     private void FixedUpdate()
     {

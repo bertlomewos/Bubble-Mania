@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 public class PowerUpSpawner : MonoBehaviour
@@ -8,11 +9,10 @@ public class PowerUpSpawner : MonoBehaviour
     [SerializeField] private LayerMask groundLayer; 
     [SerializeField] private float spawnCheckRadius = 0.8f;
 
-    private void Start()
+    public void Start()
     {
         InvokeRepeating(nameof(SpawnPowerUp), 2f, spawnInterval); 
     }
-
     private void SpawnPowerUp()
     {
         if (powerUpPrefabs.Length == 0 || spawnArea == null) return;
@@ -27,7 +27,8 @@ public class PowerUpSpawner : MonoBehaviour
             {
                 int randomPowerUpIndex = Random.Range(0, powerUpPrefabs.Length);
 
-                Instantiate(powerUpPrefabs[randomPowerUpIndex], randomPosition, Quaternion.identity);
+               PowerUp Instance =  Instantiate(powerUpPrefabs[randomPowerUpIndex], randomPosition, Quaternion.identity);
+
                 return;
             }
         }

@@ -9,7 +9,7 @@ public enum Players
 public class Blob : MonoBehaviour
 {
     [SerializeField] private string Name;
-    [SerializeField] public static float direction = 1;
+    [SerializeField] public float direction = 1;
     public static Blob instatnce;
 
     public float Hp = 100000;
