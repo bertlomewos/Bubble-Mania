@@ -1,34 +1,49 @@
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
-public class Bullet : MonoBehaviour
+public class Bullet : NetworkBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float Bulletspeed = 500f;
     [SerializeField] private float lifespan = 5f;
 
     private float dir = 1;
-    void Start()
+    public override void OnNetworkSpawn()
     {
-       dir = Blob.direction;
+        if (!IsClient)
+            return;
+
+    }
+    private void Start()
+    {
+        if (!IsClient) 
+            return;
+        SelfDistructRpc();
+        dir = Blob.direction;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        SelfDistruct();
     }
     private void FixedUpdate()
     {
-        ShootTo();
+        if (!IsOwner) 
+            return;
+        ShootToRpc();
     }
-    public virtual void ShootTo()
+
+
+    [Rpc(SendTo.Owner)]
+    public virtual void ShootToRpc()
     {
         rb.linearVelocity = new Vector2(dir * Bulletspeed * Time.fixedDeltaTime, rb.linearVelocity.y);
     }
 
-    private void SelfDistruct()
+    [Rpc(SendTo.Owner)]
+    private void SelfDistructRpc()
     {
         Destroy(gameObject, lifespan);
     }
+
 }
