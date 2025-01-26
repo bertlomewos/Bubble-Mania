@@ -344,6 +344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 8877197744101150294}
   healthAmount: 100
+  blobController: {fileID: 6342409980068899238}
 --- !u!1 &5508690650953893199
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,6 +619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
+  direction: 1
   Hp: 100000
 --- !u!58 &9056803886543092197
 CircleCollider2D:

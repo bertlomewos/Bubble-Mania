@@ -5,16 +5,19 @@ public class HealthManager : MonoBehaviour
 {
     [SerializeField] private Image healthBar;
     [SerializeField] private float healthAmount = 100f;
+    [SerializeField] private BlobController blobController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        blobController = GetComponent<BlobController>();
+        //healthAmount = blobController.CurrentHp;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //healthAmount = blobController.CurrentHp;
         if (healthAmount <= 0)
         {
             Application.LoadLevel(Application.loadedLevel);
